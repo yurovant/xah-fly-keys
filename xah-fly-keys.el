@@ -1,4 +1,4 @@
-;;; xah-fly-keys.el --- ergonomic modal keybinding minor mode. -*- coding: utf-8; lexical-binding: t; -*-
+;;; xah-fly-keys.el --- A modal keybinding minor mode. -*- coding: utf-8; lexical-binding: t; -*-
 
 ;; Copyright © 2013, 2025 by Xah Lee
 
@@ -15,66 +15,64 @@
 
 ;;; Commentary:
 
-;; xah-fly-keys is a efficient keybinding for emacs. It is modal like
-;; vi, but key choices are based on statistics of command call
-;; frequency.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;    Usage
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Usage:
+;; Toggle xah-fly-keys mode on/off:
+;; M-x `xah-fly-keys'
 
-;; M-x xah-fly-keys to toggle the mode on/off.
-
-;; Important command/insert mode switch keys:
-
+;; Activate COMMAND-mode:
 ;; M-x `xah-fly-command-mode-activate'
-;; or press <escape>
-;; or Alt+Space
-;; or Ctrl+Space.
-;; Note: if using emacs 28 or before, escape key only works when in emacs is running in graphical user interface mode.
+;; or press ESC
+;; or press M-SPC
 
+;; Activate INSERT-mode:
 ;; M-x `xah-fly-insert-mode-activate'
-;; when in command mode, press qwerty letter key f.
+;; or press "f" when in COMMAND-mode
 
-;; When in command mode:
 
-;; "f" calls `xah-fly-insert-mode-activate'.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;    Leader key
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Space is a leader key. For example, "SPC r" calls `query-replace'.
-;; Press "SPC C-h" to see the full list.
+;; Press "SPC C-h" to see the full list of commands.
 
-;; "SPC SPC" also activates insertion mode.
+;; "SPC SPC" also activates INSERT-mode.
 
 ;; "SPC RET" calls `execute-extended-command'.
 
 ;; "a" calls `execute-extended-command'.
 
-;; The leader key sequence basically supplant ALL emacs commands that
-;; starts with C-x key.
+;; The leader key sequence basically supplants most Emacs commands
+;; that start with the C-x key.
 
-;; When using xah-fly-keys, you don't need to press Control or Meta,
-;; with the following exceptions:
+;; You almost never need to press "C-x" with the following exceptions:
 
 ;; "C-c" for major mode commands.
 ;; "C-g" for cancel.
 ;; "C-q" for quoted-insert.
 ;; "C-h" for getting a list of keys following a prefix/leader key.
 
-;; Leader key
 
-;; You NEVER need to press "C-x"
-
-;; Any emacs command that has a keybinding starting with C-x, has also
-;; a key sequence binding in xah-fly-keys. For example,
+;; Any Emacs command that has a keybinding starting with C-x,
+;; has also a key sequence binding in xah-fly-keys. For example,
 
 ;; "C-x b" for `switch-to-buffer' is "SPC f"
 ;; "C-x C-f" for `find-file' is "SPC i e"
 ;; "C-x n n" for `narrow-to-region' is "SPC l l"
 
-;; The first key we call it leader key. In the above examples, the SPC
-;; is the leader key.
+;; The first key is called a leader key.
+;; In the above examples, the SPC is the leader key.
 
-;; When in command mode, the "SPC" is a leader key.
+;; When in COMMAND-mode, the "SPC" becomes is a leader key.
 
-;; if you want the following standard keys with Control
+;; If you want the following standard keys with Control
 ;; "C-TAB" `xah-next-user-buffer'
 ;; "C-S-TAB" `xah-previous-user-buffer'
 ;; "C-v" paste
@@ -92,12 +90,12 @@
 ;; (setq xah-fly-use-control-key t)
 
 ;; To disable any change to Control keybinding
-;; add this to emacs init
+;; add this to Emacs init
 ;; (setq xah-fly-use-control-key nil)
 ;; before loading xah-fly-keys
 
-;; To disable any change to meta keybinding
-;; add this to emacs init
+;; To disable any change to Meta keybinding
+;; add this to Emacs init
 ;; (setq xah-fly-use-meta-key nil)
 ;; before loading xah-fly-keys
 
@@ -106,15 +104,19 @@
 ;; For detail about design and other info, see home page at
 ;; http://xahlee.info/emacs/misc/xah-fly-keys.html
 
-;; If you like this project, paypal me $30 to Xah@XahLee.org
 
-;;; Installation:
-;; here's how to manual install
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;    Installation
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Put the file xah-fly-keys.el in ~/.emacs.d/lisp/
 ;;
-;; put the file xah-fly-keys.el in ~/.emacs.d/lisp/
-;; create the dir if doesn't exist.
+;; Create the dir if doesn't exist.
 ;;
-;; put the following in your emacs init file:
+;; Put the following in your Emacs init file:
+;;
 ;; (add-to-list 'load-path "~/.emacs.d/lisp/")
 ;; (require 'xah-fly-keys)
 ;; (xah-fly-keys-set-layout "qwerty") ; optional
@@ -151,6 +153,7 @@
 ;; supported layouts are stored in the variable xah-fly-layout-diagrams
 
 ;; s------------------------------
+
 ;;; Code:
 
 (require 'dired)
@@ -167,10 +170,10 @@
 (defvar xah-fly-insert-mode-activate-hook nil "Hook for `xah-fly-insert-mode-activate'")
 
 (defcustom xah-fly-use-control-key t
-  "If true, change many emacs keybinding involving control key.
+  "If true, change many Emacs keybinding involving Control key.
 Keys changed:
 Standard shortcut for open, close, copy, paste etc.
-Remove many redundant emacs default keys
+Remove many redundant Emacs default keys
 Must be set before loading xah-fly-keys."
   :type 'boolean)
 
@@ -180,8 +183,8 @@ Must be set before loading xah-fly-keys."
   :type 'boolean)
 
 (defcustom xah-fly-use-meta-key nil
-  "If true, change some emacs keybinding involving meta key.
-Remove many redundant emacs default keys.
+  "If true, change some Emacs keybinding involving Meta key.
+Remove many redundant Emacs default keys.
 Must be set before loading xah-fly-keys."
   :type 'boolean)
 
@@ -194,12 +197,12 @@ Must be set before loading xah-fly-keys."
  :type 'boolean)
 
 (defcustom xah-fly-command-mode-hl-line t
- "If true, highlight current line when in command mode.
+ "If true, highlight current line when in COMMAND-mode.
 Must be set before loading xah-fly-keys."
  :type 'boolean)
 
 (defcustom xah-fly-command-mode-cursor-color "red"
-  "Cursor color when in command mode.
+  "Cursor color when in COMMAND-mode.
 Value should be a string of color name. See `list-colors-display'.
 Default is red.
 If set to nil, use the color of current theme.
@@ -207,7 +210,7 @@ Must be set before loading xah-fly-keys."
  :type '(string))
 
 (defcustom xah-fly-insert-mode-cursor-color "gray"
-  "Cursor color when in insert mode.
+  "Cursor color when in INSERT-mode.
 Value should be a string of color name. See `list-colors-display'.
 Default is gray.
 If set to nil, use the color of current theme.
@@ -309,7 +312,7 @@ If `universal-argument' value is 1, ask for a position.
 Else use the number under cursor.
 If no number is under cursor, ask for a position.
 
-If there is more than one pane (aka emacs window), goto position in that pane.
+If there is more than one pane (aka Emacs window), goto position in that pane.
 
 URL `http://xahlee.info/emacs/emacs/emacs_goto_line_other_buffer.html'
 Created: 2025-04-10
@@ -344,7 +347,7 @@ If `universal-argument' value is 1, ask for a line number.
 Else use the number under cursor.
 If no number is under cursor, ask for a line number.
 
-If there is more than one pane (aka emacs window), goto the line number in that pane.
+If there is more than one pane (aka Emacs window), goto the line number in that pane.
 
 URL `http://xahlee.info/emacs/emacs/emacs_goto_line_other_buffer.html'
 Created: 2025-04-10
@@ -1183,7 +1186,7 @@ Version: 2025-08-29"
 When called for the first time, change to one line. Second call change it to multi-lines. Repeated call toggles.
 If `universal-argument' is called first, ask user to type max length of line. By default, it is 70.
 
-Note: this command is different from emacs `fill-region' or `fill-paragraph'.
+Note: this command is different from Emacs `fill-region' or `fill-paragraph'.
 This command never adds or delete non-whitespace chars. It only exchange whitespace sequence.
 
 URL `http://xahlee.info/emacs/emacs/emacs_reformat_lines.html'
@@ -2316,7 +2319,7 @@ This is useful for transforming certain url into file path. e.g. change
 http://xahlee.info/emacs/index.html
 to
 C:/Users/xah/web/xahlee_info/emacs/index.html
-, so instead of opening in browser, it opens in emacs as file.")
+, so instead of opening in browser, it opens in Emacs as file.")
 
 (defun xah-open-file-at-cursor ()
   "Open the file path under cursor.
@@ -2397,7 +2400,7 @@ Version: 2024-09-25"
                        (file-exists-p (concat xfnamecore ".ts")))
                   (progn
                     (find-file (concat xfnamecore ".ts"))
-                    (warn "Typescript file .ts exist, opening it"))
+                    (warn "TypeScript file .ts exist, opening it"))
 
                 (find-file xpathNoQ)))))
          ((file-exists-p (concat xpathNoQ ".el"))
@@ -2730,7 +2733,7 @@ Version: 2023-09-09"
                     (format "%s %s"
                             "xdg-open"
                             (file-name-directory xpath)))
-      ;; (shell-command "xdg-open .") ;; 2013-02-10 this sometimes froze emacs till the folder is closed. eg with nautilus
+      ;; (shell-command "xdg-open .") ;; 2013-02-10 this sometimes froze Emacs till the folder is closed. eg with nautilus
       ))))
 
 (defun xah-open-in-vscode ()
@@ -2752,7 +2755,7 @@ Version: 2024-12-15"
 
 (defun xah-open-in-external-app (&optional Fname)
   "Open the current file or dired marked files in external app.
-When called in emacs lisp, if Fname is given, open that.
+When called in Emacs lisp, if Fname is given, open that.
 
 URL `http://xahlee.info/emacs/emacs/emacs_dired_open_file_in_ext_apps.html'
 Created: 2019-11-04
@@ -3223,10 +3226,6 @@ Version: 2025-06-05"
      xkeys1 xkeys2)
     xtable))
 
-;; (xah-fly-create-key-conv-table
-;;   (gethash "qwerty" xah-fly-layout-diagrams)
-;;   (gethash "dvorak" xah-fly-layout-diagrams))
-
 (defvar xah-fly-key-current-layout nil
  "The current keyboard layout.
 Value is a key in `xah-fly-layout-diagrams'.
@@ -3293,10 +3292,10 @@ Version: 2025-10-07"
  "If `xah-fly-insert-state-p' is true, point to `xah-fly-insert-map', else, points to `xah-fly-command-map'.")
 
 (defvar xah-fly-command-map (make-sparse-keymap)
-  "Keymap when in command mode.")
+  "Keymap when in COMMAND-mode.")
 
 (defvar xah-fly-insert-map (make-sparse-keymap)
-  "Keymap when in insert mode.")
+  "Keymap when in INSERT-mode.")
 
 (defvar xah-fly--deactivate-command-mode-func nil)
 
@@ -3475,7 +3474,7 @@ Version: 2024-04-22"
        ("h t" . describe-function)
        ("h u" . elisp-index-search)
        ("h v" . apropos-value)
-       ("h x" . describe-command) ; emacs 28
+       ("h x" . describe-command) ; Emacs 28
 
        ("h z" . describe-coding-system)
 
@@ -3759,7 +3758,7 @@ Version: 2024-04-22"
 (xah-fly-define-keys)
 
 ;; s------------------------------
-;; set control meta, etc keys
+;; set Control, Meta keys etc.
 
 (defcustom xah-fly-unset-useless-key t
   "If true, unbind many obsolete or useless or redundant
@@ -3769,8 +3768,6 @@ Version: 2024-04-22"
 (when xah-fly-unset-useless-key
   (global-set-key (kbd "<help>") nil)
   (global-set-key (kbd "<f1>") nil))
-
-  (global-set-key (kbd "M-SPC") #'xah-fly-command-mode-activate)
 
 (when xah-fly-use-meta-key
 
@@ -3852,8 +3849,6 @@ Version: 2024-04-22"
   (global-set-key (kbd "C--") #'text-scale-decrease)
   (global-set-key (kbd "C-=") #'text-scale-increase)
 
-  (global-set-key (kbd "C-SPC") #'xah-fly-command-mode-activate)
-
   (global-set-key (kbd "C-S-n") #'make-frame-command)
   (global-set-key (kbd "C-S-s") #'write-file)
   (global-set-key (kbd "C-S-t") #'xah-open-last-closed)
@@ -3869,20 +3864,25 @@ Version: 2024-04-22"
   (global-set-key (kbd "C-w") #'xah-close-current-buffer)
   (global-set-key (kbd "C-y") #'undo-redo)
   (global-set-key (kbd "C-z") #'undo)
+
   ;;
   )
 
-  (global-set-key (kbd "<f7>") 'xah-fly-leader-key-map)
+(global-set-key (kbd "<f7>") 'xah-fly-leader-key-map)
+
+(global-set-key (kbd "M-SPC") #'xah-fly-command-mode-activate)
 
 ;; s------------------------------
 
-(when (< emacs-major-version 28)
-  (defalias 'execute-extended-command-for-buffer #'execute-extended-command))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;    Misc.
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; s------------------------------
-;;;; misc
-
-;; the following have keys in gnu emacs, but i decided not to give them a key, because either they are rarely used (say, 95% of emacs users use them less than once a month ), or there is a more efficient command/workflow with key in xah-fly-keys
+;; The following commands have default bindings in GNU Emacs, but are omitted 
+;; here because they are either rarely used (less than once a month for most 
+;; users) or have a more efficient equivalent within the xah-fly-keys workflow.
 
 ;; C-x $   →   set-selective-display
 ;; C-x *   →   calc-dispatch
@@ -3949,7 +3949,7 @@ Version: 2024-04-22"
 
 ;; s------------------------------
 
-(defvar xah-fly-insert-state-p t "non-nil means insertion mode is on.")
+(defvar xah-fly-insert-state-p t "non-nil means INSERT-mode is on.")
 
 (defun xah-fly--update-key-map ()
   (setq xah-fly-key-map (if xah-fly-insert-state-p
@@ -3982,7 +3982,7 @@ Version: 2024-05-23"
     (when (not (equal xold Layout)) (xah-fly-define-keys))))
 
 (defun xah-fly-space-key ()
-  "Switch to command mode if the char before cursor is a space.
+  "Switch to COMMAND-mode if the char before cursor is a space.
 experimental
 Version: 2018-05-07"
   (interactive)
@@ -3991,7 +3991,7 @@ Version: 2018-05-07"
     (insert " ")))
 
 (defun xah-fly-command-mode-init ()
-  "Set command mode keys.
+  "Set COMMAND-mode keys.
 Version: 2022-07-06"
   (interactive)
   (setq xah-fly-insert-state-p nil)
@@ -4006,7 +4006,7 @@ Version: 2022-07-06"
   (force-mode-line-update))
 
 (defun xah-fly-insert-mode-init (&optional no-indication)
-  "Enter insertion mode."
+  "Enter INSERT-mode."
   (interactive)
   (setq xah-fly-insert-state-p t)
   (xah-fly--update-key-map)
@@ -4018,7 +4018,7 @@ Version: 2022-07-06"
   (force-mode-line-update))
 
 (defun xah-fly-mode-toggle ()
-  "Switch between {insertion, command} modes."
+  "Switch between {insert, command} modes."
   (interactive)
   (if xah-fly-insert-state-p
       (xah-fly-command-mode-activate)
@@ -4031,7 +4031,7 @@ Version: 2022-07-06"
     (save-buffer)))
 
 (defun xah-fly-command-mode-activate ()
-  "Activate command mode and run `xah-fly-command-mode-activate-hook'
+  "Activate COMMAND-mode and run `xah-fly-command-mode-activate-hook'
 Version: 2017-07-07"
   (interactive)
   (xah-fly-command-mode-init)
@@ -4039,13 +4039,13 @@ Version: 2017-07-07"
   (run-hooks 'xah-fly-command-mode-activate-hook))
 
 (defun xah-fly-command-mode-activate-no-hook ()
-  "Activate command mode. Does not run `xah-fly-command-mode-activate-hook'
+  "Activate COMMAND-mode. Does not run `xah-fly-command-mode-activate-hook'
 Version: 2017-07-07"
   (interactive)
   (xah-fly-command-mode-init))
 
 (defun xah-fly-insert-mode-activate ()
-  "Activate insertion mode.
+  "Activate INSERT-mode.
 Version: 2017-07-07"
   (interactive)
   (xah-fly-insert-mode-init)
@@ -4053,7 +4053,7 @@ Version: 2017-07-07"
   (run-hooks 'xah-fly-insert-mode-activate-hook))
 
 (defun xah-fly-insert-mode-activate-newline ()
-  "Activate insertion mode, insert newline below."
+  "Activate INSERT-mode, insert newline below."
   (interactive)
   (xah-fly-insert-mode-activate)
   (open-line 1))
@@ -4062,7 +4062,7 @@ Version: 2017-07-07"
 
 ;;;###autoload
 (define-minor-mode xah-fly-keys
-  "A modal keybinding set, like vim, but based on ergonomic principles, like Dvorak layout.
+  "A modal keybinding minor mode.
 
 URL `http://xahlee.info/emacs/misc/xah-fly-keys.html'"
   :global t
