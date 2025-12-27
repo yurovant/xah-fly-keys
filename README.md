@@ -1,6 +1,6 @@
 # xah-fly-keys
 
-A modal keybinding for Emacs based on command frequency and ergonomics.
+A modal keybinding minor mode for Emacs.
 
 [Xah Fly Keys home page](http://xahlee.info/emacs/misc/xah-fly-keys.html)
 
