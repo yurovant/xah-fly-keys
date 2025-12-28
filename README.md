@@ -8,6 +8,6 @@ This is my fork of [Xah Lee](https://github.com/xahlee)'s [repository](https://g
 ## Documentation
 You can find more information about this mode and detailed documentation on the [Xah Fly Keys home page](http://xahlee.info/emacs/misc/xah-fly-keys.html).
 
-## Key diagram for QWERTY keyboard layout
+## Key diagram for ISO QWERTY keyboard layout
 
 ![xah-fly-keys qwerty layout](keyboard-layout/keyboard-layout--qwerty.png)
