@@ -195,8 +195,9 @@ If set to nil, use the color of current theme.
 Must be set before loading xah-fly-keys."
  :type '(string))
 
-;; s------------------------------
-;; cursor movement
+;;; ==========================================================================
+;;;    Cursor movement
+;;; ==========================================================================
 
 (defun xah-pop-local-mark-ring ()
   "Move cursor to last mark position of current buffer.
@@ -460,8 +461,9 @@ Version: 2025-03-25"
     (setq xbeg (if (region-active-p) (region-beginning) (save-excursion (if (re-search-backward "\n[ \t]*\n" nil 1) (match-end 0) (point)))) xend (if (region-active-p) (region-end) (save-excursion (if (re-search-forward "\n[ \t]*\n" nil 1) (match-beginning 0) (point)))))
     (narrow-to-region xbeg xend)))
 
-;; s------------------------------
-;; editing commands
+;;; ==========================================================================
+;;;    Editing commands
+;;; ==========================================================================
 
 (defun xah-copy-line-or-region ()
   "Copy current line or selection.
@@ -1647,8 +1649,9 @@ Version: 2025-11-07"
     (copy-to-register ?1 (point-min) (point-min))
     (message "Cleared register 1.")))
 
-;; s------------------------------
-;; insertion commands
+;;; ==========================================================================
+;;;    Insertion commands
+;;; ==========================================================================
 
 (defun xah-insert-date ()
   "Insert current date time.
@@ -1919,8 +1922,9 @@ Version: 2023-09-19"
            (completing-read "Insert:" xah-unicode-list nil t))))
     (insert (cdr (assoc xkey xah-unicode-list)))))
 
-;; s------------------------------
-;; text selection
+;;; ==========================================================================
+;;;    Text selection
+;;; ==========================================================================
 
 (defun xah-select-block ()
   "Select the current/next block.
@@ -2119,8 +2123,9 @@ Version: 2024-10-02"
     (setq xend (point))
     (kill-region xbeg xend)))
 
-;; s------------------------------
-;; misc
+;;; ==========================================================================
+;;;    Misc.
+;;; ==========================================================================
 
 (defun xah-user-buffer-p ()
   "Return t if current buffer is a user buffer, else nil.
@@ -2817,8 +2822,9 @@ focus shifts to the previous window."
       (message "Only one window; nothing to delete.")
     (delete-window)))
 
-;; s------------------------------
-;; layout lookup tables for key conversion
+;;; ==========================================================================
+;;;    Layout lookup tables for key conversion
+;;; ==========================================================================
 
 (defvar xah-fly-layout-diagrams (make-hash-table :test 'equal)
   "A hashtable.
@@ -2963,8 +2969,9 @@ Version: 2025-10-07"
       (cdr x)))
    KeyCmdAlist))
 
-;; s------------------------------
-;; keymaps
+;;; ==========================================================================
+;;;    Keymaps
+;;; ==========================================================================
 
 (defvar xah-fly-key-map (make-sparse-keymap)
  "If `xah-fly-insert-state-p' is true, point to `xah-fly-insert-map', else, points to `xah-fly-command-map'.")
@@ -2977,8 +2984,9 @@ Version: 2025-10-07"
 
 (defvar xah-fly--deactivate-command-mode-func nil)
 
-;; s------------------------------
-;; setting keys
+;;; ==========================================================================
+;;;    Setting keys
+;;; ==========================================================================
 
 (defun xah-fly-define-keys ()
   "Define the keys for xah-fly-keys.
@@ -3452,8 +3460,9 @@ Version: 2024-04-22"
 
 (xah-fly-define-keys)
 
-;; s------------------------------
-;; set Control, Meta keys etc.
+;;; ==========================================================================
+;;;    Set Control, Meta keys etc.
+;;; ==========================================================================
 
 (defcustom xah-fly-unset-useless-key t
   "If true, unbind many obsolete or useless or redundant
@@ -3567,7 +3576,6 @@ Version: 2024-04-22"
 
 (global-set-key (kbd "M-SPC") #'xah-fly-command-mode-activate)
 
-;; s------------------------------
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -3753,9 +3761,13 @@ Version: 2017-07-07"
   (xah-fly-insert-mode-activate)
   (open-line 1))
 
-;; s------------------------------
 
-;;;###autoload
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;    AUTOLOAD
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define-minor-mode xah-fly-keys
   "A modal keybinding minor mode.
 
