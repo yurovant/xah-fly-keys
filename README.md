@@ -10,4 +10,4 @@ You can find more information about this mode and detailed documentation on the 
 
 ## Key diagram for QWERTY keyboard layout
 
-![xah-fly-keys qwerty layout](i/xah_fly_keys_qwerty_layout_2025-08-02.png)
+![xah-fly-keys qwerty layout](keyboard-layout/keyboard-layout--qwerty.png)
