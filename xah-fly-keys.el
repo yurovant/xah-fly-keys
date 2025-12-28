@@ -1502,7 +1502,7 @@ Version: 2023-11-02"
           (replace-match "\"" t t)))))
   (message "done. %s" real-this-command))
 
-(defun xah-cycle-hyphen-lowline-space (&optional Begin End)
+(defun xah-cycle-kebab-snake-space (&optional Begin End)
   "Cycle {hyphen lowline space} chars.
 
 The region to work on is by this order:
@@ -1520,7 +1520,7 @@ Version: 2025-01-24"
   (let (xbeg xend xlen
             (xcharArray ["-" "_" " "])
             (xregionWasActive-p (region-active-p))
-            (xnowState (if (eq last-command this-command) (get 'xah-cycle-hyphen-lowline-space 'state) 0))
+            (xnowState (if (eq last-command this-command) (get 'xah-cycle-kebab-snake-space 'state) 0))
             xchangeTo)
     (setq
      xlen (length xcharArray)
@@ -1545,7 +1545,7 @@ Version: 2025-01-24"
       (goto-char xend)
       (push-mark xbeg)
       (setq deactivate-mark nil))
-    (put 'xah-cycle-hyphen-lowline-space 'state (% (+ xnowState 1) xlen)))
+    (put 'xah-cycle-kebab-snake-space 'state (% (+ xnowState 1) xlen)))
   (set-transient-map (let ((xkmap (make-sparse-keymap))) (define-key xkmap (kbd (if (boundp 'xah-repeat-key) xah-repeat-key ".")) this-command) xkmap)))
 
 (defun xah-copy-file-path (&optional DirPathOnlyQ)
@@ -3332,7 +3332,7 @@ Version: 2024-04-22"
        ("t i" . delete-non-matching-lines)
        ("t j" . copy-to-register)
        ("t k" . insert-register)
-       ("t l" . xah-cycle-hyphen-lowline-space)
+       ("t l" . xah-cycle-kebab-snake-space)
        ("t m" . xah-make-backup-and-save)
        ("t n" . xah-goto-char)
        ("t o" . xah-clean-whitespace)
