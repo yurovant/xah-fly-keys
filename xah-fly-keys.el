@@ -2862,332 +2862,35 @@ It is used to generate key conversion table of a key from layout to layout.
 
 (progn
 
-  (puthash "adnw" "
-~ ! @ # $ % ^ & * ( ) { }
-` 1 2 3 4 5 6 7 8 9 0 [ ]
-
-k u ü . ä v g c l j f = \\
-h i e a o d t r n s ß
-x y ö , q b p w m z
-
-K U Ü > Ä V G C L J F + |
-H I E A O D T R N S ẞ
-X Y Ö < Q B P W M Z
-" xah-fly-layout-diagrams)
-
-  (puthash "azerty"
-           "
-~ ! @ # $ % ^ & * ( ) { }
-² & é \" ' ( - è _ ç à ) =
-
-a z e r t y u i o p ^ $ *
-q s d f g h j k l m ù
-w x c v b n , ; : !
-
-A Z E R T Y U I O P ? + |
-Q S D F G H J K L M Ù
-W X C V B N ? . / §
-" xah-fly-layout-diagrams)
-
-  (puthash "azerty-be"
-           "
-~ ! @ # $ % ^ & * ( ) { }
-² & é \" ' ( § è ! ç à ) -
-
-a z e r t y u i o p ^ $ µ
-q s d f g h j k l m ù
-w x c v b n , ; : =
-
-A Z E R T Y U I O P ^ $ Μ
-Q S D F G H J K L M Ù
-W X C V B N ? . / +
-" xah-fly-layout-diagrams)
-
-  (puthash "bepo" "
-#  1 2 3 4 5 6 7 8 9 0 ° `
-$ \" « » ( ) @ + - / * = %
-
-b é p o è ^ v d l j z w \\
-a u i e , c t s r n m
-à y x . k ' q g h f
-
-B É P O È ! V D L J Z W |
-A U I E ; C T S R N M
-À Y X : K ? Q G H F
-" xah-fly-layout-diagrams)
-
-  (puthash "colemak" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
-
-q w f p g j l u y ; [ ] \\
-a r s t d h n e i o '
-z x c v b k m , . /
-
-Q W F P G J L U Y : { } |
-A R S T D H N E I O \"
-Z X C V B K M < > ?
-" xah-fly-layout-diagrams)
-
-  (puthash "colemak-dh" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
-
-q w f p b j l u y ; [ ] \\
-a r s t g m n e i o '
-z x c d v k h , . /
-
-Q W F P B J L U Y : { } |
-A R S T G M N E I O \"
-Z X C D V K H < > ?
-" xah-fly-layout-diagrams)
-
-  (puthash "dvorak" "
-~ ! @ # $ % ^ & * ( ) { }
-` 1 2 3 4 5 6 7 8 9 0 [ ]
-
-' , . p y f g c r l / = \\
-a o e u i d h t n s -
-; q j k x b m w v z
-
-\" < > P Y F G C R L ? + |
-A O E U I D H T N S _
-: Q J K X B M W V Z
-" xah-fly-layout-diagrams)
-
-  (puthash "engrammer" "
-~ ! @ # $ % ^ & * ( ) { }
-` 1 2 3 4 5 6 7 8 9 0 [ ]
-
-b y o u ' ; l d w v z = \\
-c i e a , . h t s n q
-g x j k - / r m f p
-
-B Y O U \" : L D W V Z + |
-C I E A < > H T S N Q
-G X J K _ ? R M F P
-" xah-fly-layout-diagrams)
-
-  (puthash "koy" "
-^ ! @ # $ % ^ & * ( ) _ ~
-˘ 1 2 3 4 5 6 7 8 9 0 - `
-
-k . o , y v g c l ß / = \\
-h a e i u d t r n s f
-x q ä ü ö b p w m j
-
-K > O < Y V G C L ẞ ? + |
-H A E I U D T R N S F
-X Q Ä Ü Ö B P W M J
-" xah-fly-layout-diagrams)
-
-  (puthash "halmak" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
-
-w l r b z ; q u d j [ ] \\
-s h n t , . a e o i '
-f m v c / g p x k y
-
-W L R B Z : Q U D J { } |
-S H N T < > A E O I \"
-F M V C ? G P X K Y
-" xah-fly-layout-diagrams)
-
-  (puthash "minimak" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
-
-q w d r k y u i o p [ ] \\
-a s t f g h j e l ; '
-z x c v b n m , . /
-
-Q W D R K Y U I O P { } |
-A S T F G H J E L : \"
-Z X C V B N M < > ?
-" xah-fly-layout-diagrams)
-
-(puthash "neo2" "
-ˇ ° § ℓ » « $ € „ “ ” — ¸
-^ 1 2 3 4 5 6 7 8 9 0 - `
-
-x v l c w k h g f q ß ´ \\
-u i a e o s n r t d y
-ü ö ä p z b m , . j
-
-X V L C W K H G F Q ẞ ~ |
-U I A E O S N R T D Y
-Ü Ö Ä P Z B M – • J
-" xah-fly-layout-diagrams)
-
-  (puthash "norman" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
-
-q w d f k j u r l ; [ ] \\
-a s e t g y n i o h '
-z x c v b p m , . /
-
-Q W D F K J U R L : { } |
-A S E T G Y N I O H \"
-Z X C V B P M < > ?
-" xah-fly-layout-diagrams)
-
-  (puthash "programer-dvorak" "
-~ % 7 5 3 1 9 0 2 4 6 8 `
-$ & [ { } ( = * ) + ] ! #
-
-; , . p y f g c r l / @ \\
-a o e u i d h t n s -
-' q j k x b m w v z
-
-: < > P Y F G C R L ? ^ |
-A O E U I D H T N S _
-\" Q J K X B M W V Z
-" xah-fly-layout-diagrams)
-
-  (puthash "pt-nativo" "
-* ! \" # $ % & / ( ) = ª >
-+ 1  2 3 4 5 6 7 8 9 0 º <
-
-' , . h x w l t c p ~ - \\
-i e a o u m d s r n ´
-« ç j b k q v g f z
-
-? ; : H X W L T C P ^ _ |
-I E A O U M D S R N `
-Y Ç J B K Q V G F Z
-" xah-fly-layout-diagrams)
-
-  (puthash "qfmlwy" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
-
-q f m l w y u o b j [ ] \\
-d s t n r i a e h ; '
-z v g c x p k , . /
-
-Q F M L W Y U O B J { } |
-D S T N R I A E H : \"
-Z V G C X P K < > ?
-" xah-fly-layout-diagrams)
-
-(puthash "qgmlwb" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
-
-q g m l w b y u v ; [ ] \\
-d s t n r i a e o h '
-z x c f j k p , . /
-
-Q G M L W B Y U V : { } |
-D S T N R I A E O H \"
-Z X C F J K P < > ?
-" xah-fly-layout-diagrams)
-
+  ;; ISO QWERTY
   (puthash "qwerty" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
+± ! @ # $ % ^ & * ( ) _ +
+§ 1 2 3 4 5 6 7 8 9 0 - =
 
-q w e r t y u i o p [ ] \\
-a s d f g h j k l ; '
-z x c v b n m , . /
+q w e r t y u i o p [ ]
+a s d f g h j k l ; ' \\
+` z x c v b n m , . /
 
-Q W E R T Y U I O P { } |
-A S D F G H J K L : \"
-Z X C V B N M < > ?
+Q W E R T Y U I O P { }
+A S D F G H J K L : \" |
+~ Z X C V B N M < > ?
 " xah-fly-layout-diagrams)
 
-  (puthash "qwerty-abnt" "
-\" ! @ # $ % ^ & * ( ) _ +
- ' 1 2 3 4 5 6 7 8 9 0 - =
+  (puthash "ukrainian" "
+/ ! \" № ; % : ? * ( ) _ +
+\ 1  2 3 4 5 6 7 8 9 0 - =
 
-q w e r t y u i o p ´ [ ]
-a s d f g h j k l ç ~
-z x c v b n m , . ;
+й ц у к е н г ш щ з х ї
+ф і в а п р о л д ж є ʼ
+ґ я ч с м и т ь б ю .
 
-Q W E R T Y U I O P ` + |
-A S D F G H J K L Ç ^
-Z X C V B N M < > :
+Й Ц У К Е Н Г Ш Щ З Х Ї
+Ф І В А П Р О Л Д Ж Э ₴
+Ґ Я Ч С М И Т Ь Б Ю ,
 " xah-fly-layout-diagrams)
 
-  (puthash "qwerty-no" "
-§ ! \" # ¤ % & / ( ) = ? `
-| 1  2 3 4 5 6 7 8 9 0 + \\
-
-q w e r t y u i o p å ¨ '
-a s d f g h j k l ø æ
-z x c v b n m , . -
-
-Q W E R T Y U I O P Å ^ *
-A S D F G H J K L Ø Æ
-Z X C V B N M < > _
-" xah-fly-layout-diagrams)
-
-  (puthash "qwerty-se" "
-§ ! \" # ¤ % & / ( ) = ? `
-| 1  2 3 4 5 6 7 8 9 0 + \\
-
-q w e r t y u i o p å ¨ '
-a s d f g h j k l ö ä
-z x c v b n m , . -
-
-Q W E R T Y U I O P Å ^ *
-A S D F G H J K L Ö Ä
-Z X C V B N M < > _
-" xah-fly-layout-diagrams)
-
-  (puthash "qwertz" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
-
-q w e r t z u i o p [ ] \\
-a s d f g h j k l ; '
-y x c v b n m , . /
-
-Q W E R T Z U I O P { } |
-A S D F G H J K L : \"
-Y X C V B N M < > ?
-" xah-fly-layout-diagrams)
-
-  (puthash "qwpr" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
-
-q w p r f y u k l ; [ ] \\
-a s d t g h n i o e '
-z x c v b j m , . /
-
-Q W P R F Y U K L : { } |
-A S D T G H N I O E \"
-Z X C V B J M < > ?
-" xah-fly-layout-diagrams)
-
-  (puthash "russian" "
-Ё ! \" № ; % : ? * ( ) _ +
-ё 1  2 3 4 5 6 7 8 9 0 - =
-
-й ц у к е н г ш щ з х ъ \\
-ф ы в а п р о л д ж э
-я ч с м и т ь б ю .
-
-Й Ц У К Е Н Г Ш Щ З Х Ъ |
-Ф Ы В А П Р О Л Д Ж Э
-Я Ч С М И Т Ь Б Ю ,
-" xah-fly-layout-diagrams)
-
-  (puthash "workman" "
-~ ! @ # $ % ^ & * ( ) _ +
-` 1 2 3 4 5 6 7 8 9 0 - =
-
-q d r w b j f u p ; [ ] \\
-a s h t g y n e o i '
-z x m c v k l , . /
-
-Q D R W B J F U P : { } |
-A S H T G Y N E O I \"
-Z X M C V K L < > ?
-" xah-fly-layout-diagrams))
+;;
+)
 
 (defun xah-fly-create-key-conv-table (Layout1 Layout2)
   "Takes two text diagrams Layout1 Layout2, return a hashtable.
