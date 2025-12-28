@@ -17,7 +17,29 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;;    Usage
+;;;    INSTALLATION
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; 1. Place the file 'xah-fly-keys.el' in ~/.emacs.d/lisp/
+;; 2. Create the directory if it does not already exist.
+;; 3. Add the following to your Emacs init file:
+;;
+;; (add-to-list 'load-path "~/.emacs.d/lisp/")
+;; (require 'xah-fly-keys)
+;; (xah-fly-keys-set-layout "qwerty") ; Optional
+;; (xah-fly-keys 1)
+;;
+;; Supported layout values:
+;; - "qwerty"
+;; - "ukrainian"
+;;
+;; Available layouts are stored in the variable: `xah-fly-layout-diagrams`
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;    USAGE
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -26,101 +48,79 @@
 
 ;; Activate COMMAND-mode:
 ;; M-x `xah-fly-command-mode-activate'
-;; or press ESC
-;; or press M-SPC
+;; or press ESC when in INSERT-mode
+;; or press M-SPC when in INSERT-mode
 
 ;; Activate INSERT-mode:
 ;; M-x `xah-fly-insert-mode-activate'
 ;; or press "f" when in COMMAND-mode
+;; or press "SPC SPC" when in COMMAND-mode
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;;    Leader key
+;;;    LEADER KEY
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Space is a leader key. For example, "SPC r" calls `query-replace'.
-;; Press "SPC C-h" to see the full list of commands.
+;; In COMMAND-mode, the Space key ("SPC") acts as the leader key.
+;; Press "SPC C-h" to view the full list of available commands.
 
-;; "SPC SPC" also activates INSERT-mode.
+;; Most Emacs commands that traditionally start with "C-x" have an
+;; equivalent key sequence in xah-fly-keys. For example:
+;; "C-x b"   (switch-to-buffer)   becomes  "SPC f"
+;; "C-x C-f" (find-file)          becomes  "SPC i e"
+;; "C-x n n" (narrow-to-region)   becomes  "SPC l l"
 
-;; "SPC RET" calls `execute-extended-command'.
+;; This leader key system effectively replaces the majority of 
+;; standard Emacs "C-x" combinations.
 
-;; "a" calls `execute-extended-command'.
-
-;; The leader key sequence basically supplants most Emacs commands
-;; that start with the C-x key.
-
-;; You almost never need to press "C-x" with the following exceptions:
-
-;; "C-c" for major mode commands.
-;; "C-g" for cancel.
+;; You will rarely need the Control (C-) modifier, with a few exceptions:
+;; "C-c" for major-mode-specific commands.
+;; "C-g" to quit or cancel a command.
 ;; "C-q" for quoted-insert.
-;; "C-h" for getting a list of keys following a prefix/leader key.
+;; "C-h" to list keys following a prefix or leader key.
 
-
-;; Any Emacs command that has a keybinding starting with C-x,
-;; has also a key sequence binding in xah-fly-keys. For example,
-
-;; "C-x b" for `switch-to-buffer' is "SPC f"
-;; "C-x C-f" for `find-file' is "SPC i e"
-;; "C-x n n" for `narrow-to-region' is "SPC l l"
-
-;; The first key is called a leader key.
-;; In the above examples, the SPC is the leader key.
-
-;; When in COMMAND-mode, the "SPC" becomes is a leader key.
-
-;; If you want the following standard keys with Control
-;; "C-TAB" `xah-next-user-buffer'
-;; "C-S-TAB" `xah-previous-user-buffer'
-;; "C-v" paste
-;; "C-w" close
-;; "C-z" undo
-;; "C-n" new
-;; "C-o" open
-;; "C-s" save
-;; "C-S-s" save as
-;; "C-S-t" open last closed
-;; "C-+" `text-scale-increase'
-;; "C--" `text-scale-decrease'
-
-;; add
+;; To enable standard OS-style shortcuts (e.g., C-v for paste, C-s for save):
+;; "C-TAB"   (xah-next-user-buffer)
+;; "C-S-TAB" (xah-previous-user-buffer)
+;; "C-v" (paste), "C-w" (close), "C-z" (undo), "C-n" (new), "C-o" (open)
+;; "C-s" (save), "C-S-s" (save as), "C-S-t" (restore closed tab)
+;; "C-+" (increase text scale), "C--" (decrease text scale)
+;; Add this to your init:
 ;; (setq xah-fly-use-control-key t)
 
-;; To disable any change to Control keybinding
-;; add this to Emacs init
+;; To prevent any modifications to Control keybindings, add:
 ;; (setq xah-fly-use-control-key nil)
-;; before loading xah-fly-keys
+;; (Note: This must be placed before loading xah-fly-keys)
 
-;; To disable any change to Meta keybinding
-;; add this to Emacs init
+;; To prevent any modifications to Meta keybindings, add:
 ;; (setq xah-fly-use-meta-key nil)
-;; before loading xah-fly-keys
+;; (Note: This must be placed before loading xah-fly-keys)
 
-;; If you have a bug, post on github.
-
-;; For detail about design and other info, see home page at
+;; For detailed design documentation and more info, visit:
 ;; http://xahlee.info/emacs/misc/xah-fly-keys.html
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;;    Installation
+;;;    [MY] VANILLA SETTINGS
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Put the file xah-fly-keys.el in ~/.emacs.d/lisp/
-;;
-;; Create the dir if doesn't exist.
-;;
-;; Put the following in your Emacs init file:
-;;
-;; (add-to-list 'load-path "~/.emacs.d/lisp/")
-;; (require 'xah-fly-keys)
-;; (xah-fly-keys-set-layout "qwerty") ; optional
-;; (xah-fly-keys 1)
+(use-package emacs
+  :ensure nil
+  :bind
+  (;; Disable bindings that conflict with my setup
+   ("C-x ^"   . nil)  ;; enlarge-window
+   ("C-x }"   . nil)  ;; enlarge-window-horizontally
+   ("C-x {"   . nil)  ;; shrink-window-horizontally
+   ("C-z"     . nil)  ;; suspend-frame
+   ("C-x C-z" . nil))
+  :init
+  (with-current-buffer (get-buffer-create "*scratch*")
+    (insert ";;
+;; Hi there!
 ;;
 ;; possible layout values:
 
@@ -155,6 +155,11 @@
 ;; s------------------------------
 
 ;;; Code:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;    [XAH] PACKAGE
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'dired)
 (require 'dired-x)
