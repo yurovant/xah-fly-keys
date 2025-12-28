@@ -2912,13 +2912,13 @@ Version: 2025-06-05"
 Value is a key in `xah-fly-layout-diagrams'.
 Do not set this variable manually.
 Use `xah-fly-keys-set-layout' to set it.
-Default to qwerty.
+Default to 'qwerty'.
 Version: 2022-10-22")
 
 (if xah-fly-key-current-layout nil (setq xah-fly-key-current-layout "qwerty"))
 
 (defvar xah-fly--key-convert-table nil
-  "A hashtable that's the conversion table from dvorak to current layout.
+  "A hashtable that's the conversion table from 'qwerty' to current layout.
 Value is a hashtable.
 Created: 2019-02-12
 Version: 2025-07-11" )
@@ -2926,7 +2926,7 @@ Version: 2025-07-11" )
 (setq
  xah-fly--key-convert-table
  (xah-fly-create-key-conv-table
-  (gethash "dvorak" xah-fly-layout-diagrams)
+  (gethash "qwerty" xah-fly-layout-diagrams)
   (gethash xah-fly-key-current-layout xah-fly-layout-diagrams)))
 
 (defun xah-fly--convert-key (Keystr)
@@ -2947,7 +2947,7 @@ Version: 2024-04-22"
 
 (defun xah-fly--define-keys (KeymapName KeyCmdAlist &optional Direct-p)
   "Map `define-key' over a alist KeyCmdAlist, with key layout remap.
-The key is remapped from Dvorak to the current keyboard layout by `xah-fly--convert-key'.
+The key is remapped from 'qwerty' to the current keyboard layout by `xah-fly--convert-key'.
 If Direct-p is t, do not remap key to current keyboard layout.
 Example usage:
  (xah-fly--define-keys
@@ -3393,48 +3393,65 @@ Version: 2024-04-22"
     (xah-fly--define-keys
      xah-fly-command-map
      '(("SPC" . xah-fly-leader-key-map)
-       ("'" . xah-reformat-lines)
-       ("," . xah-shrink-whitespaces)
-       ("-" . delete-other-windows)
-       ("." . backward-kill-word)
-       ("/" . hippie-expand)
-       (";" . xah-comment-dwim)
-       ("[" . split-window-below)
-       ("\\" . xah-cycle-hyphen-lowline-space)
-       ("]" . split-window-right)
-       ("`" . other-frame)
 
-       ("a" . execute-extended-command)
-       ("b" . isearch-forward)
-       ("c" . previous-line)
-       ("d" . xah-beginning-of-line-or-block)
-       ("e" . xah-smart-delete)
-       ("E" . delete-backward-char)
-       ("f" . undo)
-       ("g" . backward-word)
-       ("h" . backward-char)
-       ("i" . xah-extend-selection)
+       ("1" . xah-delete-other-windows)                     ;; 
+       ("2" . nil)                                          ;; TODO: Add 2 window layout
+       ("3" . nil)                                          ;; TODO: Add 3 window layout
+       ("4" . my/four-window-layout)                        ;; 
+       ("5" . transpose-frame)                              ;; 
+       ("6" . rotate-frame-clockwise)                       ;; 
+       ("7" . rotate-frame-anticlockwise)                   ;; 
+       ("8" . nil)                                          ;; TODO
+       ("9" . nil)                                          ;; TODO
+       ("0" . xah-delete-window-smart)                      ;; 
 
-       ("j" . xah-copy-line-or-region)
-       ("k" . xah-paste-or-paste-previous)
-       ("l" . xah-insert-space-before)
-       ("m" . xah-backward-left-bracket)
-       ("n" . forward-char)
-       ("o" . open-line)
-       ("p" . kill-word)
-       ("q" . xah-cut-line-or-region)
-       ("r" . forward-word)
-       ("s" . xah-end-of-line-or-block)
-       ("t" . next-line)
-       ("u" . xah-fly-insert-mode-activate)
-       ("v" . xah-forward-right-bracket)
-       ("w" . xah-next-window-or-frame)
-       ("x" . xah-toggle-letter-case)
-       ("y" . xah-fly-cancel)
-       ("z" . xah-goto-matching-bracket)))
+       ("-" . split-window-below)                           ;; SPLIT BELOW
+       ("=" . split-window-right)                           ;; SPLIT RIGHT
+
+       ("]" . other-window)                                 ;; NEXT WIN
+       ("[" . (lambda () (interactive) (other-window -1)))  ;; PREV WIN
+
+       (";"  . xah-end-of-line-or-block)
+       ("'"  . xah-cycle-kebab-snake-space)                 ;; Kebab Snake Space
+       ("\\" . other-frame)                                 ;; NEXT FRAME
+
+       ("," . nil)                                          ;; TODO
+       ("." . xah-forward-right-bracket)                    ;; 
+       ("/" . hippie-expand)                                ;; 
+
+       ("a" . execute-extended-command)                     ;; 
+       ("b" . xah-toggle-letter-case)                       ;; 
+       ("c" . xah-copy-line-or-region)                      ;; 
+       ("d" . xah-smart-delete)                             ;; 
+       ("e" . backward-kill-word)                           ;; 
+       ("E" . nil)                                          ;; TODO
+       ("f" . xah-fly-insert-mode-activate)                 ;; 
+       ("g" . xah-extend-selection)                         ;; 
+       ("h" . xah-beginning-of-line-or-block)               ;; 
+       ("i" . previous-line)                                ;; 
+       ("j" . backward-char)                                ;; 
+       ("k" . next-line)                                    ;; 
+       ("l" . forward-char)                                 ;; 
+       ("m" . xah-backward-left-bracket)                    ;; 
+       ("n" . isearch-forward)                              ;; 
+       ("o" . forward-word)                                 ;; 
+       ("p" . xah-insert-space-before)                      ;; 
+       ("q" . xah-reformat-lines)                           ;; 
+       ("r" . kill-word)                                    ;; 
+       ("s" . open-line)                                    ;; 
+       ("t" . xah-fly-cancel)                               ;; 
+       ("u" . backward-word)                                ;; 
+       ("v" . xah-paste-or-paste-previous)                  ;; 
+       ("w" . delete-backward-char)                         ;; 
+       ("x" . xah-cut-line-or-region)                       ;; 
+       ("y" . undo)                                         ;; 
+       ("z" . xah-comment-dwim)                             ;; 
+
+       ;; xah-goto-matching-bracket
+       ;; xah-shrink-whitespaces
 
     ;;
-    ))
+    ))))
 
 (xah-fly-define-keys)
 
@@ -3658,7 +3675,7 @@ Version: 2024-05-23"
     (setq
      xah-fly--key-convert-table
      (xah-fly-create-key-conv-table
-      (gethash "dvorak" xah-fly-layout-diagrams)
+      (gethash "qwerty" xah-fly-layout-diagrams)
       xkeydiagram))
     (when (not (equal xold Layout)) (xah-fly-define-keys))))
 
