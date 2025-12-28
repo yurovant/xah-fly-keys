@@ -101,6 +101,9 @@
 ;; For detailed design documentation and more info, visit:
 ;; http://xahlee.info/emacs/misc/xah-fly-keys.html
 
+;; s------------------------------
+
+;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -122,39 +125,9 @@
     (insert ";;
 ;; Hi there!
 ;;
-;; possible layout values:
+")))
 
-;; adnw (German)
-;; azerty
-;; azerty-be
-;; bepo (French)
-;; colemak
-;; colemak-dh
-;; dvorak
-;; engrammer
-;; halmak
-;; koy (German)
-;; minimak
-;; neo2 (German)
-;; norman
-;; programer-dvorak
-;; pt-nativo (Brazil)
-;; qfmlwy
-;; qgmlwb
-;; qwerty
-;; qwerty-abnt (Brazil)
-;; qwerty-no (Norwegian)
-;; qwerty-se (Swedish)
-;; qwertz
-;; qwpr
-;; russian
-;; workman
 
-;; supported layouts are stored in the variable xah-fly-layout-diagrams
-
-;; s------------------------------
-
-;;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;    [XAH] PACKAGE
