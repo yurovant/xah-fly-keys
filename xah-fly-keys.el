@@ -2800,25 +2800,22 @@ Version: 2023-06-26"
    ((eq system-type 'berkeley-unix)
     (let ((process-connection-type nil)) (start-process "" nil "x-terminal-emulator" (concat "--working-directory=" default-directory))))))
 
-(defun xah-next-window-or-frame ()
-  "Switch to next window or frame.
-If current frame has only one window, switch to next frame.
-If `universal-argument' is called first, do switch frame.
-Version: 2017-01-27"
-  (interactive)
-  (if current-prefix-arg
-      (other-frame 1)
-    (if (one-window-p)
-        (other-frame 1)
-      (other-window 1))))
-
-(defun xah-unsplit-window-or-next-frame ()
-  "Unsplit window. If current frame has only one window, switch to next frame.
-Version: 2017-01-29"
+(defun xah-delete-other-windows ()
+  "Delete other windows in the current frame.
+If there is only one window, switch to the next frame."
   (interactive)
   (if (one-window-p)
       (other-frame 1)
     (delete-other-windows)))
+
+(defun xah-delete-window-smart ()
+  "Delete the current window (like C-x 0), but do nothing if it is the only window.
+If the frame has multiple windows, the current window is closed and 
+focus shifts to the previous window."
+  (interactive)
+  (if (one-window-p)
+      (message "Only one window; nothing to delete.")
+    (delete-window)))
 
 ;; s------------------------------
 ;; layout lookup tables for key conversion
@@ -3343,7 +3340,7 @@ Version: 2024-04-22"
        ("t t" . repeat)
        ("t u" . kill-matching-lines)
        ("t v" . nil)
-       ("t w" . xah-next-window-or-frame)
+       ("t w" . nil)
        ("t x" . xah-title-case-region-or-line)
        ("t y" . delete-duplicate-lines)
        ("t z" . nil)
