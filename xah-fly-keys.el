@@ -30,12 +30,11 @@
 ;; (xah-fly-keys-set-layout "qwerty") ; Optional
 ;; (xah-fly-keys 1)
 ;;
-;; Supported layout values include:
+;; Available layouts:
 ;; - "qwerty"
 ;; - "ukrainian"
 ;;
-;; For a full list of available layouts, see the variable:
-;; `xah-fly-layout-diagrams`
+;; Available layouts are defined in the `xah-fly-layout-diagrams' variable.
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
