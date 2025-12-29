@@ -21,8 +21,8 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; 1. Place the file 'xah-fly-keys.el' in ~/.emacs.d/lisp/
-;; 2. Create the directory if it does not already exist.
+;; 1. Create the directory ~/.emacs.d/lisp/ if it doesn't exist.
+;; 2. Place 'xah-fly-keys.el' (this file) in that directory.
 ;; 3. Add the following to your Emacs init file:
 ;;
 ;; (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -30,11 +30,12 @@
 ;; (xah-fly-keys-set-layout "qwerty") ; Optional
 ;; (xah-fly-keys 1)
 ;;
-;; Supported layout values:
+;; Supported layout values include:
 ;; - "qwerty"
 ;; - "ukrainian"
 ;;
-;; Available layouts are stored in the variable: `xah-fly-layout-diagrams`
+;; For a full list of available layouts, see the variable:
+;; `xah-fly-layout-diagrams`
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
