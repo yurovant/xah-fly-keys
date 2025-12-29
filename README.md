@@ -11,7 +11,7 @@ This is my fork of [Xah Lee](https://github.com/xahlee)'s [repository](https://g
 ## Installation
 
 1. Create the directory `~/.emacs.d/lisp/` if it doesn't exist.
-2. Place `xah-fly-keys.el` (this file) in that directory.
+2. Place `xah-fly-keys.el` in that directory.
 3. Add the following to your Emacs init file:
 
 ```elisp
